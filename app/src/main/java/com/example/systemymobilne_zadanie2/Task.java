@@ -35,7 +35,6 @@ public class Task {
     }
 
     public boolean isDone() {
-        done = true;
         return done;
     }
 }

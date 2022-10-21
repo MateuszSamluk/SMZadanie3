@@ -2,9 +2,11 @@ package com.example.systemymobilne_zadanie2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import java.util.List;
 public class TaskListFragment extends Fragment {
     public static final String KEY_EXTRA_TASK_ID = "KEY_EXTRA_TASK_ID";
     private RecyclerView recyclerView;
+    private TaskAdapter adapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,11 +32,9 @@ public class TaskListFragment extends Fragment {
     }
 
     private class TaskHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+        private Task task;
         private TextView nameTextView;
         private TextView dateTextView;
-        private Task task;
-
 
         public TaskHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_task, parent, false));
@@ -46,6 +47,7 @@ public class TaskListFragment extends Fragment {
             this.task = task;
             nameTextView.setText(task.getName());
             dateTextView.setText(task.getDate().toString());
+
         }
 
         @Override
@@ -82,7 +84,6 @@ public class TaskListFragment extends Fragment {
         }
     }
 
-    private TaskAdapter adapter;
     private void updateView(){
         TaskStorage taskStorage = TaskStorage.getInstance();
         List<Task> tasks = taskStorage.getTasks();
